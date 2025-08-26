@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import './globals.css';
 
 export default function Home() {
   const [plu, setPlu] = useState('');
@@ -72,7 +73,7 @@ export default function Home() {
     setError('');
     setImageUrl('');
     try {
-      const response = await fetch(`/api/search/${keywordValue}`);
+      const response = await fetch(`/api/search/${encodeURIComponent(keywordValue)}`);
       const data = await response.json();
       
       if (data.status === '00') {
@@ -98,7 +99,7 @@ export default function Home() {
             type="text"
             value={plu}
             onChange={(e) => setPlu(e.target.value)}
-            placeholder="Enter PLU code"
+            placeholder="Enter PLU code (e.g., 20087542)"
             required
           />
           <button type="submit">Load Image</button>
@@ -112,7 +113,7 @@ export default function Home() {
             type="text"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
-            placeholder="Enter keyword"
+            placeholder="Enter keyword (e.g., Golda)"
             required
           />
           <button type="submit">Search</button>
