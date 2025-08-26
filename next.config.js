@@ -17,9 +17,19 @@ const nextConfig = {
       },
     ];
   },
+  // Nonaktifkan image optimization karena kita menggunakan gambar eksternal
   images: {
+    unoptimized: true,
     domains: ['assets.klikindomaret.com'],
-    unoptimized: true
+  },
+  // Mengizinkan akses ke domain eksternal
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: '/api/:path*',
+      },
+    ];
   },
 };
 
