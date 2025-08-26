@@ -17,7 +17,9 @@ export async function GET(request, { params }) {
     
     // Jika gambar sudah ada, langsung return URL
     if (fs.existsSync(imagePath)) {
-      const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+      const baseUrl = process.env.VERCEL_URL 
+        ? `https://${process.env.VERCEL_URL}` 
+        : 'http://localhost:3000';
       const imageUrl = `${baseUrl}/thumb/${plu}.jpg`;
       
       return NextResponse.json({
@@ -38,7 +40,9 @@ export async function GET(request, { params }) {
       // Simpan gambar ke public/thumb
       fs.writeFileSync(imagePath, buffer);
       
-      const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+      const baseUrl = process.env.VERCEL_URL 
+        ? `https://${process.env.VERCEL_URL}` 
+        : 'http://localhost:3000';
       const imageUrl = `${baseUrl}/thumb/${plu}.jpg`;
       
       return NextResponse.json({
